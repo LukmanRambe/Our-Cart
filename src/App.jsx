@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 // Router
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
 // Components
 import Home from './components/Home'
 import Navbar from './components/Navbar'
@@ -16,18 +16,21 @@ const App = () => {
 	const [groceryName, setGroceryName] = useState('')
 	const [isEditing, setIsEditing] = useState(false)
 
+	const location = useMatch('/')
+	console.log(location)
+
 	useEffect(() => {
 		localStorage.setItem('GROCERIES', JSON.stringify(groceries))
 	}, [groceries])
 
 	return (
-		<Router basename='/'>
+		<>
+			{!useMatch('/') && <Navbar />}
 			<Routes>
 				<Route index path='/' element={<Home />}></Route>
 				<Route
 					path='/groceries'
-					element={[
-						<Navbar />,
+					element={
 						<Groceries
 							groceries={groceries}
 							setGroceries={setGroceries}
@@ -36,21 +39,20 @@ const App = () => {
 							isEditing={isEditing}
 							setIsEditing={setIsEditing}
 						/>
-					]}></Route>
+					}></Route>
 				<Route
 					path='/groceries/groceryDetail/:id'
-					element={[
-						<Navbar />,
+					element={
 						<GroceryDetail
 							groceries={groceries}
 							setGroceries={setGroceries}
 							isEditing={isEditing}
 							setIsEditing={setIsEditing}
 						/>
-					]}></Route>
+					}></Route>
 			</Routes>
 			<GlobalStyle />
-		</Router>
+		</>
 	)
 }
 
