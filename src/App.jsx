@@ -16,9 +16,6 @@ const App = () => {
 	const [groceryName, setGroceryName] = useState('')
 	const [isEditing, setIsEditing] = useState(false)
 
-	const location = useMatch('/')
-	console.log(location)
-
 	useEffect(() => {
 		localStorage.setItem('GROCERIES', JSON.stringify(groceries))
 	}, [groceries])
