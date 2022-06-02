@@ -1,4 +1,4 @@
-# Meme Master
+# Our Cart
 
 This is Groceries Shopping List app i have created using ReactJS.
 
